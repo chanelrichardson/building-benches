@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Synth Sess</title>
+
+    <!-- The website stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <audio id="ht" src="sounds/808ht_HT00.WAV"></audio>
+    <audio id = "cy" src = "sounds/808cy_CY0000.WAV"></audio>
+    <audio id = "sd" src = "sounds/808sd_SD0000.WAV"></audio>
+    <audio id = "mt" src = "sounds/808mt_MT00.WAV"></audio>
+    <audio id = "hc" src = "sounds/808hc_HC00.WAV"></audio>
+    <audio id = "C" src = "sounds/C.wav"></audio>
+
+   <div class="button-group">
+  <!-- The background image stays separated -->
+  <img src="images/black-box.png" alt="Background" class="back-image">
+  
+  <!-- This new wrapper forces the buttons into a perfect row and handles alignment -->
+  <div class="buttons-row">
+    <button type="button" onclick="handleDrumButton('ht', 'ht-drum')">
+      <img src="images/button_up.png" alt="button" id="ht-drum" width="30" height="30"> 
+    </button>
+    <button type="button" onclick="handleDrumButton('cy', 'cy-drum')">
+      <img src="images/button_up.png" alt="button" id="cy-drum" width="30" height="30"> 
+    </button>
+    <button type="button" onclick="handleDrumButton('sd', 'sd-drum')">
+      <img src="images/button_up.png" alt="button" id="sd-drum" width="30" height="30"> 
+    </button>
+    <button type="button" onclick="handleDrumButton('mt', 'mt-drum')">
+      <img src="images/button_up.png" alt="button" id="mt-drum" width="30" height="30"> 
+    </button>
+    <button type="button" onclick="handleDrumButton('hc', 'hc-drum')">
+      <img src="images/button_up.png" alt="button" id="hc-drum" width="30" height="30"> 
+    </button>
+  </div>
+</div>
+
+
+    <p id="drums">DRUMS</p>
+
+<div class="keyboard-container">
+  <!-- White keys and black keys live side-by-side in the HTML -->
+   <button type="button" onclick="handleKeyPress('C')">
+    <div class="key white" id="C"></div>
+  </button> 
+  <div class="key black" id="Db"></div>
+  <div class="key white" id="D"></div>
+  <div class="key black" id="Eb"></div>
+  <div class="key white" id="E"></div>
+  <div class="key white" id="F"></div>
+  <div class="key black" id="Gb"></div>
+  <div class="key white" id="G"></div>
+  <div class="key black" id="Ab"></div>
+  <div class="key white" id="A"></div>
+  <div class="key black" id="Bb"></div>
+  <div class="key white" id="B"></div>
+</div>
+    <script>
+    function handleDrumButton(drumtype, elemid) {
+      // Play the sound
+      const sound = document.getElementById(drumtype);
+      sound.currentTime = 0; 
+      sound.play();
+
+      // Change the picture
+      const image = document.getElementById(elemid);
+      image.src = "images/button_pressed.png"; 
+      setTimeout(function() {
+      image.src = "images/button_up.png";
+    }, 200); 
+    }
+
+    function handleKeyPress(note) {
+      const key = document.getElementById(note);
+      if (key) {
+        key.classList.add('active');
+        setTimeout(() => {
+          key.classList.remove('active');
+        }, 200);
+      }
+    }
+  </script>
+        <!-- Option 1 (simplest, no customization) -->
+    <script type="module">
+      import { playhtml } from "https://unpkg.com/playhtml@latest";
+
+      // Initialize with cursor tracking
+      playhtml.init({
+        cursors: {
+          enabled: true,
+          room: "page"
+        }
+      });
+
+      // Make playhtml available globally for script.js
+      window.playhtml = playhtml;
+    </script>
+    <!-- The website JavaScript file -->
+    <script src="script.js" defer></script>
+  </body>
+</html>
