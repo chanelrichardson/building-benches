@@ -19,8 +19,7 @@
 
     <div class="synth-workspace" id="board">
       
-      <div class="module pedal-box" id="drum-pedal" style="background-image: url('images/bb-bg.jpg');">
-        <div class="pedal-header title-plate"><h3 class="pedal-title">RHYTHM BOX</h3></div>
+      <div class="module pedal-box" id="drum-pedal" style="background-image: url('images/bb-bg.jpg');">\
         <div class="buttons-row">
           <button type="button" class="photo-btn" can-hover id="ht-btn" onclick="handleDrumButton('sounds/808ht_HT00.WAV', event)"><img src='images/red-push-button.png'></button>
           <button type="button" class="photo-btn" can-hover id="cy-btn" onclick="handleDrumButton('sounds/808cy_CY0000.WAV', event)"><img src='images/red-push-button.png'></button>
@@ -42,23 +41,23 @@
             <button class="photo-btn" can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/arrow-up-button.png" alt="Up"></button>
           </div>
           <div class="keyboard-container">
-            <div class="key white" can-hover id="note-C" onclick="playNote('C', event)"></div>
-            <div class="key black db" can-hover id="note-Db" onclick="playNote('Db', event)"></div>
-            <div class="key white" can-hover id="note-D" onclick="playNote('D', event)"></div>
-            <div class="key black eb" can-hover id="note-Eb" onclick="playNote('Eb', event)"></div>
-            <div class="key white" can-hover id="note-E" onclick="playNote('E', event)"></div>
-            <div class="key white" can-hover id="note-F" onclick="playNote('F', event)"></div>
-            <div class="key black gb" can-hover id="note-Gb" onclick="playNote('Gb', event)"></div>
-            <div class="key white" can-hover id="note-G" onclick="playNote('G', event)"></div>
-            <div class="key black ab" can-hover id="note-Ab" onclick="playNote('Ab', event)"></div>
-            <div class="key white" can-hover id="note-A" onclick="playNote('A', event)"></div>
-            <div class="key black bb" can-hover id="note-Bb" onclick="playNote('Bb', event)"></div>
-            <div class="key white" can-hover id="note-B" onclick="playNote('B', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-C" onclick="playNote('C', event)"></div>
+            <div class="key black db" can-mirror can-hover id="note-Db" onclick="playNote('Db', event)"></div>
+            <div class="key white"  can-mirror can-hover id="note-D" onclick="playNote('D', event)"></div>
+            <div class="key black eb" can-mirror can-hover id="note-Eb" onclick="playNote('Eb', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-E" onclick="playNote('E', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-F" onclick="playNote('F', event)"></div>
+            <div class="key black gb" can-mirror can-hover id="note-Gb" onclick="playNote('Gb', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-G" onclick="playNote('G', event)"></div>
+            <div class="key black ab" can-mirror can-hover id="note-Ab" onclick="playNote('Ab', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-A" onclick="playNote('A', event)"></div>
+            <div class="key black bb" can-mirror can-hover id="note-Bb" onclick="playNote('Bb', event)"></div>
+            <div class="key white" can-mirror can-hover id="note-B" onclick="playNote('B', event)"></div>
           </div>
         </div>
       </div>
 
-      <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/pattern.png');">
+      <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">NOISE GENERATOR</h3>
           <div class="fader-container">
@@ -104,7 +103,7 @@
         </div>
       </div>
 
-      <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/pattern5.jpg');">
+      <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <div class="xy-pad" id="xy-pad">
             <div class="xy-cursor" id="xy-cursor"></div>
@@ -112,7 +111,7 @@
         </div>
       </div>
 
-      <div class="module pedal-box" id="echo-pedal" style="background-image: url('images/pattern6.jpg');">
+      <div class="module pedal-box" id="echo-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">ECHO TANK</h3>
           <div class="fader-row">
@@ -129,7 +128,7 @@
         </div>
       </div>
 
-      <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/pattern9.jpg');">
+      <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">SHREDDER</h3>
           <div class="fader-container">
@@ -140,7 +139,7 @@
         </div>
       </div>
 
-      <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/pattern7.jpg'); width: 400px;">
+      <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
         <div class="control-plate">
           <h3 class="pedal-title">RIBBON GLIDE</h3>
           <div class="ribbon-track" id="ribbon-track">
