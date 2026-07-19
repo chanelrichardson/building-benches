@@ -1,107 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Synth Sess</title>
-
-    <!-- The website stylesheet -->
+    <title>Synth Sess - PlayHTML Chaos Board</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <audio id="ht" src="sounds/808ht_HT00.WAV"></audio>
-    <audio id = "cy" src = "sounds/808cy_CY0000.WAV"></audio>
-    <audio id = "sd" src = "sounds/808sd_SD0000.WAV"></audio>
-    <audio id = "mt" src = "sounds/808mt_MT00.WAV"></audio>
-    <audio id = "hc" src = "sounds/808hc_HC00.WAV"></audio>
-    <audio id = "C" src = "sounds/C.wav"></audio>
 
-   <div class="button-group">
-  <!-- The background image stays separated -->
-  <img src="images/black-box.png" alt="Background" class="back-image">
-  
-  <!-- This new wrapper forces the buttons into a perfect row and handles alignment -->
-  <div class="buttons-row">
-    <button type="button" onclick="handleDrumButton('ht', 'ht-drum')">
-      <img src="images/button_up.png" alt="button" id="ht-drum" width="30" height="30"> 
-    </button>
-    <button type="button" onclick="handleDrumButton('cy', 'cy-drum')">
-      <img src="images/button_up.png" alt="button" id="cy-drum" width="30" height="30"> 
-    </button>
-    <button type="button" onclick="handleDrumButton('sd', 'sd-drum')">
-      <img src="images/button_up.png" alt="button" id="sd-drum" width="30" height="30"> 
-    </button>
-    <button type="button" onclick="handleDrumButton('mt', 'mt-drum')">
-      <img src="images/button_up.png" alt="button" id="mt-drum" width="30" height="30"> 
-    </button>
-    <button type="button" onclick="handleDrumButton('hc', 'hc-drum')">
-      <img src="images/button_up.png" alt="button" id="hc-drum" width="30" height="30"> 
-    </button>
-  </div>
-</div>
-
-
-    <p id="drums">DRUMS</p>
-
-<div class="keyboard-container">
-  <!-- White keys and black keys live side-by-side in the HTML -->
-   <button type="button" onclick="handleKeyPress('C')">
-    <div class="key white" id="C"></div>
-  </button> 
-  <div class="key black" id="Db"></div>
-  <div class="key white" id="D"></div>
-  <div class="key black" id="Eb"></div>
-  <div class="key white" id="E"></div>
-  <div class="key white" id="F"></div>
-  <div class="key black" id="Gb"></div>
-  <div class="key white" id="G"></div>
-  <div class="key black" id="Ab"></div>
-  <div class="key white" id="A"></div>
-  <div class="key black" id="Bb"></div>
-  <div class="key white" id="B"></div>
-</div>
-    <script>
-    function handleDrumButton(drumtype, elemid) {
-      // Play the sound
-      const sound = document.getElementById(drumtype);
-      sound.currentTime = 0; 
-      sound.play();
-
-      // Change the picture
-      const image = document.getElementById(elemid);
-      image.src = "images/button_pressed.png"; 
-      setTimeout(function() {
-      image.src = "images/button_up.png";
-    }, 200); 
-    }
-
-    function handleKeyPress(note) {
-      const key = document.getElementById(note);
-      if (key) {
-        key.classList.add('active');
-        setTimeout(() => {
-          key.classList.remove('active');
-        }, 200);
-      }
-    }
-  </script>
-        <!-- Option 1 (simplest, no customization) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script type="module">
       import { playhtml } from "https://unpkg.com/playhtml@latest";
-
-      // Initialize with cursor tracking
       playhtml.init({
-        cursors: {
-          enabled: true,
-          room: "page"
-        }
+        cursors: { enabled: true, room: "pedalboard" }
       });
-
-      // Make playhtml available globally for script.js
       window.playhtml = playhtml;
     </script>
-    <!-- The website JavaScript file -->
-    <script src="script.js" defer></script>
+  </head>
+  <body>
+
+    <div class="synth-workspace" id="board">
+      
+      <div class="module pedal-box" id="drum-pedal" style="background-image: url('images/bb-bg.jpg');">
+        <div class="pedal-header title-plate"><h3 class="pedal-title">RHYTHM BOX</h3></div>
+        <div class="buttons-row">
+          <button type="button" class="photo-btn" can-hover id="ht-btn" onclick="handleDrumButton('sounds/808ht_HT00.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-hover id="cy-btn" onclick="handleDrumButton('sounds/808cy_CY0000.WAV', event)"><img src='images/red-push-button.png'></button>
+        </div>
+        <div class="buttons-row">
+          <button type="button" class="photo-btn" can-hover id="sd-btn" onclick="handleDrumButton('sounds/808sd_SD0000.WAV', event)"><img src='images/red-push-button.png'></button>
+        </div>
+        <div class="buttons-row">
+          <button type="button" class="photo-btn" can-hover id="mt-btn" onclick="handleDrumButton('sounds/808mt_MT00.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-hover id="hc-btn" onclick="handleDrumButton('sounds/808hc_HC00.WAV', event)"><img src='images/red-push-button.png'></button>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="piano-pedal" style="background-image: url('images/metal-sheet.jpeg');">
+        <div class="control-plate">
+          <div class="octave-chooser">
+            <button class="photo-btn" can-hover id="oct-down" onclick="changeOctave(-1, event)"><img src="images/arrow-down-button.png" alt="Down"></button>
+            <span id="octave-display" class="piano-hardware-text">OCT: 4</span>
+            <button class="photo-btn" can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/arrow-up-button.png" alt="Up"></button>
+          </div>
+          <div class="keyboard-container">
+            <div class="key white" can-hover id="note-C" onclick="playNote('C', event)"></div>
+            <div class="key black db" can-hover id="note-Db" onclick="playNote('Db', event)"></div>
+            <div class="key white" can-hover id="note-D" onclick="playNote('D', event)"></div>
+            <div class="key black eb" can-hover id="note-Eb" onclick="playNote('Eb', event)"></div>
+            <div class="key white" can-hover id="note-E" onclick="playNote('E', event)"></div>
+            <div class="key white" can-hover id="note-F" onclick="playNote('F', event)"></div>
+            <div class="key black gb" can-hover id="note-Gb" onclick="playNote('Gb', event)"></div>
+            <div class="key white" can-hover id="note-G" onclick="playNote('G', event)"></div>
+            <div class="key black ab" can-hover id="note-Ab" onclick="playNote('Ab', event)"></div>
+            <div class="key white" can-hover id="note-A" onclick="playNote('A', event)"></div>
+            <div class="key black bb" can-hover id="note-Bb" onclick="playNote('Bb', event)"></div>
+            <div class="key white" can-hover id="note-B" onclick="playNote('B', event)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/pattern.png');">
+        <div class="control-plate">
+          <h3 class="pedal-title">NOISE GENERATOR</h3>
+          <div class="fader-container">
+            <label class="hardware-text">FREQ</label>
+            <input type="range" class="physical-fader" id="tuner-freq" min="100" max="5000" step="10" value="400">
+          </div>
+          <button class="photo-btn" style="margin-top:20px;" can-hover id="tuner-toggle" onclick="toggleTuner(event)"><img src="images/stomp-switch.png" alt="ON"></button>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="seq-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
+        <div class="control-plate">
+          <h3 class="pedal-title">AUTO-BASS GRID</h3>
+          <div class="seq-content">
+            <div class="seq-track">
+              <button class="tactile-btn play-btn" can-hover id="play-btn-0" onclick="toggleSeqRow(0, event)">PLAY</button>
+              <div class="seq-row">
+                <input type="checkbox" class="led-step" id="step-0-0"><input type="checkbox" class="led-step" id="step-0-1">
+                <input type="checkbox" class="led-step" id="step-0-2"><input type="checkbox" class="led-step" id="step-0-3">
+                <input type="checkbox" class="led-step" id="step-0-4"><input type="checkbox" class="led-step" id="step-0-5">
+                <input type="checkbox" class="led-step" id="step-0-6"><input type="checkbox" class="led-step" id="step-0-7">
+              </div>
+            </div>
+            <div class="seq-track">
+              <button class="tactile-btn play-btn" can-hover id="play-btn-1" onclick="toggleSeqRow(1, event)">PLAY</button>
+              <div class="seq-row">
+                <input type="checkbox" class="led-step" id="step-1-0"><input type="checkbox" class="led-step" id="step-1-1">
+                <input type="checkbox" class="led-step" id="step-1-2"><input type="checkbox" class="led-step" id="step-1-3">
+                <input type="checkbox" class="led-step" id="step-1-4"><input type="checkbox" class="led-step" id="step-1-5">
+                <input type="checkbox" class="led-step" id="step-1-6"><input type="checkbox" class="led-step" id="step-1-7">
+              </div>
+            </div>
+            <div class="seq-track">
+              <button class="tactile-btn play-btn" can-hover id="play-btn-2" onclick="toggleSeqRow(2, event)">PLAY</button>
+              <div class="seq-row">
+                <input type="checkbox" class="led-step" id="step-2-0"><input type="checkbox" class="led-step" id="step-2-1">
+                <input type="checkbox" class="led-step" id="step-2-2"><input type="checkbox" class="led-step" id="step-2-3">
+                <input type="checkbox" class="led-step" id="step-2-4"><input type="checkbox" class="led-step" id="step-2-5">
+                <input type="checkbox" class="led-step" id="step-2-6"><input type="checkbox" class="led-step" id="step-2-7">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/pattern5.jpg');">
+        <div class="control-plate">
+          <div class="xy-pad" id="xy-pad">
+            <div class="xy-cursor" id="xy-cursor"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="echo-pedal" style="background-image: url('images/pattern6.jpg');">
+        <div class="control-plate">
+          <h3 class="pedal-title">ECHO TANK</h3>
+          <div class="fader-row">
+            <div class="fader-container">
+              <label class="hardware-text">TIME</label>
+              <input type="range" class="physical-fader" id="echo-time" min="0" max="1" step="0.1" value="0.5">
+            </div>
+            <div class="fader-container">
+              <label class="hardware-text">FDBK</label>
+              <input type="range" class="physical-fader" id="echo-feedback" min="0" max="0.9" step="0.1" value="0.5">
+            </div>
+          </div>
+          <button class="photo-btn" style="margin-top:20px;" can-hover id="echo-toggle" onclick="toggleEcho(event)"><img src="images/stomp-switch.png" alt="BYPASS"></button>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/pattern9.jpg');">
+        <div class="control-plate">
+          <h3 class="pedal-title">SHREDDER</h3>
+          <div class="fader-container">
+            <label class="hardware-text">DESTROY</label>
+            <input type="range" class="physical-fader" id="fuzz-amount" min="0" max="1" step="0.1" value="0.8">
+          </div>
+           <button class="photo-btn" style="margin-top:20px;" can-hover id="fuzz-toggle" onclick="toggleFuzz(event)"><img src="images/stomp-switch.png" alt="CLEAN"></button>
+        </div>
+      </div>
+
+      <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/pattern7.jpg'); width: 400px;">
+        <div class="control-plate">
+          <h3 class="pedal-title">RIBBON GLIDE</h3>
+          <div class="ribbon-track" id="ribbon-track">
+            <div class="ribbon-finger" id="ribbon-finger"></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <script>
+      let toneStarted = false;
+      const masterFilter = new Tone.Filter(20000, "lowpass").toDestination();
+
+      async function initAudio() {
+        if (!toneStarted) {
+          await Tone.start();
+          Tone.Transport.start(); 
+          toneStarted = true;
+        }
+      }
+      document.body.addEventListener('click', initAudio, { once: true });
+
+      // --- PIANO, FUZZ, & ECHO ---
+      const delay = new Tone.FeedbackDelay("8n", 0.5);
+      const fuzz = new Tone.Distortion(0.8);
+      fuzz.connect(delay);
+      delay.connect(masterFilter);
+      
+      const pianoSynth = new Tone.PolySynth().connect(masterFilter);
+      let echoOn = false;
+      let fuzzOn = false;
+
+      function updatePianoRouting() {
+        pianoSynth.disconnect();
+        if (fuzzOn && echoOn) { pianoSynth.connect(fuzz); }
+        else if (fuzzOn && !echoOn) { pianoSynth.connect(fuzz); delay.disconnect(); fuzz.connect(masterFilter); }
+        else if (!fuzzOn && echoOn) { pianoSynth.connect(delay); delay.connect(masterFilter); }
+        else { pianoSynth.connect(masterFilter); }
+      }
+
+      let currentOctave = 4;
+      function changeOctave(dir, e) {
+        if(e) e.stopPropagation();
+        currentOctave = Math.max(1, Math.min(7, currentOctave + dir));
+        document.getElementById('octave-display').innerText = `OCT: ${currentOctave}`;
+      }
+
+      function playNote(note, e) {
+        if(e) e.stopPropagation();
+        pianoSynth.triggerAttackRelease(note + currentOctave, "8n");
+        const keyElem = document.getElementById(`note-${note}`);
+        if (keyElem) { keyElem.classList.add('active'); setTimeout(() => keyElem.classList.remove('active'), 150); }
+      }
+
+      function toggleEcho(e) {
+        if(e) e.stopPropagation();
+        echoOn = !echoOn;
+        updatePianoRouting();
+      }
+      
+      document.getElementById('echo-time').addEventListener('input', (e) => delay.delayTime.value = e.target.value);
+      document.getElementById('echo-feedback').addEventListener('input', (e) => delay.feedback.value = e.target.value);
+
+      function toggleFuzz(e) {
+        if(e) e.stopPropagation();
+        fuzzOn = !fuzzOn;
+        updatePianoRouting();
+      }
+      document.getElementById('fuzz-amount').addEventListener('input', (e) => fuzz.distortion = e.target.value);
+
+      // --- DRUMS ---
+      function handleDrumButton(audioPath, e) {
+        if(e) e.stopPropagation(); 
+        new Audio(audioPath).play().catch(() => console.log("Audio not found"));
+      }
+
+      // --- NOISE GENERATOR ---
+      const noise = new Tone.Noise("pink");
+      const noiseFilter = new Tone.Filter(400, "bandpass").connect(masterFilter);
+      noise.connect(noiseFilter);
+      let tunerOn = false;
+
+      function toggleTuner(e) {
+        if(e) e.stopPropagation();
+        tunerOn = !tunerOn;
+        if (tunerOn) { noise.start(); } else { noise.stop(); }
+      }
+      document.getElementById('tuner-freq').addEventListener('input', (e) => noiseFilter.frequency.rampTo(e.target.value, 0.1));
+
+      // --- MULTI-ROW SEQUENCER ---
+      const seqSynths = [
+        new Tone.Synth({ oscillator: { type: "triangle" } }).connect(masterFilter),
+        new Tone.PolySynth().connect(masterFilter),                                 
+        new Tone.MembraneSynth().connect(masterFilter)                              
+      ];
+      const seqNotes = ["C5", ["E3", "G3", "B3"], "C1"];
+      let rowPlaying = [false, false, false];
+      let currentStep = 0;
+
+      Tone.Transport.scheduleRepeat((time) => {
+        for(let r = 0; r < 3; r++) {
+          if(rowPlaying[r]) {
+            const stepInput = document.getElementById(`step-${r}-${currentStep}`);
+            if(stepInput && stepInput.checked) seqSynths[r].triggerAttackRelease(seqNotes[r], "16n", time);
+          }
+        }
+        Tone.Draw.schedule(() => {
+          document.querySelectorAll('.led-step').forEach(s => s.classList.remove('active-step'));
+          for(let r = 0; r < 3; r++) {
+            const stepInput = document.getElementById(`step-${r}-${currentStep}`);
+            if(stepInput) stepInput.classList.add('active-step');
+          }
+        }, time);
+        currentStep = (currentStep + 1) % 8;
+      }, "8n");
+
+      function toggleSeqRow(rowIndex, e) {
+        if(e) e.stopPropagation();
+        rowPlaying[rowIndex] = !rowPlaying[rowIndex];
+        document.getElementById(`play-btn-${rowIndex}`).classList.toggle('active-play');
+        if (!rowPlaying.some(r => r)) {
+          currentStep = 0;
+          document.querySelectorAll('.led-step').forEach(s => s.classList.remove('active-step'));
+        }
+      }
+
+      // --- XY PAD ---
+      const xyFilter = new Tone.Filter(400, "lowpass").connect(masterFilter);
+      const xySynth = new Tone.Synth({ oscillator: { type: "sawtooth" } }).connect(xyFilter);
+      const pad = document.getElementById('xy-pad');
+      const cursor = document.getElementById('xy-cursor');
+      let isDraggingXY = false;
+
+      pad.addEventListener('mousedown', (e) => {
+        if(e) e.stopPropagation(); isDraggingXY = true; xySynth.triggerAttack("C3"); updateXY(e);
+      });
+      document.addEventListener('mouseup', () => { if (isDraggingXY) { isDraggingXY = false; xySynth.triggerRelease(); } });
+      document.addEventListener('mousemove', (e) => { if (isDraggingXY) updateXY(e); });
+
+      function updateXY(e) {
+        const rect = pad.getBoundingClientRect();
+        let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+        let y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
+        cursor.style.left = `${x}px`; cursor.style.top = `${y}px`;
+        xySynth.frequency.rampTo(Math.max(60, (x / rect.width) * 500), 0.1);
+        xyFilter.frequency.rampTo(Math.max(100, ((rect.height - y) / rect.height) * 2000), 0.1);
+      }
+
+      // --- RIBBON GLIDER ---
+      const ribbonSynth = new Tone.Synth({ oscillator: { type: "sine" } }).connect(masterFilter);
+      const ribbon = document.getElementById('ribbon-track');
+      const finger = document.getElementById('ribbon-finger');
+      let isGliding = false;
+
+      ribbon.addEventListener('mousedown', (e) => {
+        if(e) e.stopPropagation(); isGliding = true; updateRibbon(e); ribbonSynth.triggerAttack(ribbonSynth.frequency.value);
+      });
+      document.addEventListener('mouseup', () => { if(isGliding) { isGliding = false; ribbonSynth.triggerRelease(); }});
+      document.addEventListener('mousemove', (e) => { if(isGliding) updateRibbon(e); });
+
+      function updateRibbon(e) {
+        const rect = ribbon.getBoundingClientRect();
+        let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+        finger.style.left = `${x}px`;
+        const freq = Math.max(100, (x / rect.width) * 1500);
+        ribbonSynth.frequency.rampTo(freq, 0.05); 
+      }
+    </script>
   </body>
 </html>

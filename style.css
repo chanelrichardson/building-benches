@@ -1,259 +1,197 @@
-/* Our default values set as CSS variables */
+/*--- fonts --- */
+@font-face { font-family: vipna; src: url('fonts/Vipnagorgialla\ Rg\ It.otf'); }
+@font-face { font-family: rockybilly; src: url('fonts/Rockybilly.ttf'); }
+@font-face { font-family: eh; src: url('fonts/EagleHorizonP.ttf'); }
+@font-face { font-family: childhood; src: url('fonts/Child\ Hood.otf'); }
+@font-face { font-family: epu; src: url('ERODED PERSONAL USE.ttf'); }
+
 :root {
-  --color-bg: #69f7be;
-
-  --color-primary: #ffff00;
-  --wrapper-height: 87vh;
-  --image-max-width: 300px;
-  --image-margin: 3rem;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-family-header: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg-color: #111; /* Dark background for the floor under the board */
+  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-.button-group {
-  position: relative;
-  display: inline-block; /* Wraps tightly around the box image naturally */
-}
+* { box-sizing: border-box; }
 
-.back-image {
-  display: block;        /* Removes default baseline image whitespace underneath */
-  width: 450px;          /* Set to your exact black-box.png width */
-  height: 150px;          /* Maintains the natural aspect ratio of your box */
-}
-
-.buttons-row {
-  position: absolute;
-  top: 45%;              /* Positions wrapper from the absolute center */
-  left: 50%;
-  transform: translate(-50%, -50%); 
-  
-  display: flex;         /* Horizontal row */
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;             /* Space between your buttons */
-  width: 100%;           /* Allows row items to center relative to container */
-}
-
-.buttons-row button {
-  background: transparent; /* Strips gray browser styling */
-  border: none;            /* Strips browser border outlines */
-  padding: 0;              /* Removes uneven default vertical padding */
-  margin: 0;               /* Eliminates random button margins */
-  cursor: pointer;
-  display: flex;           /* Centers the button_up.png inside the button tag */
-  align-items: center;
-}
-
-
-.buttons-row button img {
-  display: block;          /* Removes vertical spacing inside the button element */
-}
-/* Basic page style resets */
-* {
-  box-sizing: border-box;
-}
-[hidden] {
-  display: none !important;
-}
-
-.key.white {
-  width: 60px;
-  height: 200px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 0 0 5px 5px; /* Rounds the bottom corners just like a real key */
-  box-shadow: 0 4px 2px rgba(0,0,0,0.1); /* Gives it a 3D layered look */
-  cursor: pointer;
-  transition: all 0.1s ease; /* Makes the press animation smooth */
-}
-
-.keyboard-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
 body {
-  font-family: var(--font-family);
-  background-color: var(--color-bg);
+  margin: 0; padding: 0;
+  width: 100vw; min-height: 100vh;
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  /* Placeholder for your Persian Rug or Wood Floor background */
+  background-image: url('images/your-floor-texture.jpg'); 
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-/* Page structure */
-.wrapper {
-  min-height: var(--wrapper-height);
-  display: grid;
-  place-items: center;
-  margin: 0 1rem;
+/* --- THE PEDALBOARD LAYOUT --- */
+.synth-workspace {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start; /* Stops pedals from stretching vertically */
+  gap: 30px; /* Natural spacing between pedals */
+  padding: 60px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
-.content {
+
+/* --- 3D HARDWARE REALISM --- */
+.pedal-box {
+  width: 320px; /* Fixed width gives them physical pedal proportions */
+  background-color: #333; /* Fallback color */
+  background-size: cover;
+  background-position: center;
+  
+  /* Physical depth borders and layered shadows */
+  border: 4px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 
+    0 20px 30px rgba(0,0,0,0.8), /* Heavy shadow on the floor */
+    inset 0 4px 6px rgba(255,255,255,0.2), /* Top inside rim lighting */
+    inset 0 -4px 6px rgba(0,0,0,0.6); /* Bottom inside rim shadow */
+    
   display: flex;
   flex-direction: column;
+  padding: 25px 20px;
+  gap: 20px;
+  position: relative;
   align-items: center;
-  justify-content: center;
 }
 
-/* Very light scaling for our illustration */
-.title {
-  color: #2800ff;
-  font-family: var(--font-family);
-  font-style: normal;
-  font-weight: bold;
-  font-size: 100px;
-  line-height: 105%;
-  margin: 0;
-  margin-top: 2em;
-}
+/* Adding organic, chaotic angles to simulate a real pedalboard */
+.pedal-box:nth-child(even) { transform: rotate(1.5deg); margin-top: 20px; }
+.pedal-box:nth-child(3n) { transform: rotate(-1deg); margin-top: -10px; }
+.pedal-box:nth-child(5n) { transform: translateY(15px); }
 
-/* Very light scaling for our illustration */
-.illustration {
-  max-width: 100%;
-  max-height: var(--image-max-width);
-  margin-top: var(--image-margin);
-}
-
-/* Instructions */
-.instructions {
-  margin: 1rem auto 0;
-}
-
-/* Button - Add it from the README instructions */
-button,
-input {
-  font-family: inherit;
-  font-size: 100%;
-  border: 0px;
-  background: None;
-  box-sizing: border-box;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  transition: 500ms;
-}
-
-/* Subheading */
-h2 {
-  color: #2800ff;
-}
-
-
-/* Interactive image */
-.illustration:active {
-  transform: translateY(5px);
-}
-
-/* Button dip
-- Toggling this class on and off will move it down and up again
-- The button transition property above determines the speed of the translate (500ms)
-*/
-.dipped {
-  transform: translateY(5px);
-}
-
-#lamp.clicked {
-  filter: brightness(1.2) saturate(1.6)
-    drop-shadow(0px 0px 50px rgba(247, 220, 156, 0.85));
-}
-.highlighted {
-  position: relative;
-  box-shadow: 0px 0px 30px 10px rgb(245, 169, 15) !important;
-  background: rgb(245 169 15 / 80%);
-
-  &::after {
-    opacity: 1;
-  }
-}
-.capabilities {
-  position: relative;
-  li:not(:last-child) {
-    width: fit-content;
-    cursor: zoom-in;
-    &:hover {
-      text-shadow: 0px 0px 4px rgb(245, 169, 15);
-      .code {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        @media screen and (max-width: 768px) {
-          position: initial;
-        }
-      }
-    }
-
-    .code {
-      display: none;
-      max-width: 400px;
-    }
-  }
-}
-
-#colorBox {
-  width: 200px;
-  height: 60px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  background-color: white;
-  display: block;
-}
-
-#shootingStar {
-  top: -36px;
-  left: -36px;
-  font-size: 36px;
-  position: fixed;
-  text-shadow: 0 0 4px yellow;
-  /*     display: none; */
-}
-
-@keyframes shootingstar {
-  0% {
-    transform: translate(100vw, 100vh) rotate(0deg);
-  }
-  100% {
-    transform: translate(-10vw, -10vh) rotate(360deg);
-  }
-}
-
-#guestbook {
-  li {
-    background: #ffffff;
-    border-radius: 0.25em;
-    padding: 0.25 1em;
-  }
-}
-
-#catOrDog {
-  width: 200px;
-}
-
-#catOrDog.clicked {
-  content: url("images/dog.png");
-}
-
-#plant {
+/* Ambient lighting glare over the pedal graphic */
+.pedal-box::after {
+  content: '';
   position: absolute;
-  left: 50px;
-  top: 0;
-  width: 200px;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 100%);
+  pointer-events: none; /* Crucial so you can still click buttons */
+  border-radius: 8px;
 }
 
-/* can-hover sets [data-playhtml-hover] while anyone on the page is hovering.
-   Style that attribute instead of :hover so the effect is shared. */
-#hoverBox {
-  transition: background 0.2s ease, transform 0.2s ease;
+/* --- LEGIBILITY PLATES --- */
+.control-plate {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #1a1a1a; border-radius: 6px;
+  padding: 15px; width: 95%; display: flex;
+  flex-direction: column; align-items: center;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.5);
+  z-index: 10; /* Keeps plates above the glare overlay */
 }
 
-#hoverBox[data-playhtml-hover] {
-  background: blue !important;
-  transform: scale(1.1);
+.pedal-title { margin: 0 0 15px 0; font-family: 'vipna', sans-serif; font-size: 1.5rem; text-align: center; }
+
+.hardware-text { color: #1a1a1a; font-weight: 900; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+.piano-hardware-text { color: #070000; font-weight: bold; font-size:1.5rem; font-family: 'childhood'; letter-spacing: 3px; }
+
+/* --- PHOTOREALISTIC BUTTONS & KNOBS --- */
+.photo-btn {
+  background: transparent; border: none; box-shadow: none; padding: 0;
+  cursor: pointer; outline: none; z-index: 10;
 }
 
-.reaction {
-  transition: all 0.2s ease;
-  cursor: pointer;
+.photo-btn img {
+  width: 70px; /* Default placeholder size */
+  height: auto; display: block; transition: all 0.1s ease;
+  filter: drop-shadow(0px 8px 6px rgba(0,0,0,0.5)); 
 }
 
-.reaction.reacted {
-  background: #ff6b6b;
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+.photo-btn:active img, 
+.photo-btn[data-playhtml-hover] img {
+  transform: scale(0.95) translateY(4px);
+  filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.6)) brightness(0.85);
 }
+
+/* Specific sizing for your drum shapes */
+#ht-btn img { width: 140px; }
+#cy-btn img { height: 160px; width: auto; }
+#sd-btn img, #mt-btn img, #hc-btn img { width: 60px; }
+
+/* --- PHYSICAL FADERS --- */
+.fader-row { display: flex; gap: 20px; width: 100%; justify-content: center; z-index: 10; }
+.fader-container { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; z-index: 10; }
+
+.physical-fader {
+  -webkit-appearance: none; appearance: none; width: 80%; height: 8px;
+  background: #111; border-radius: 4px;
+  outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.2);
+}
+.physical-fader::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 40px; background: #ecf0f1;
+  border: 2px solid #bdc3c7; border-radius: 4px;
+  cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+}
+
+/* --- INSTRUMENT SPECIFICS --- */
+.buttons-row { display: flex; gap: 30px; justify-content: center; width: 100%; z-index: 10; }
+
+/* Piano */
+.keyboard-container { position: relative; width: 100%; height: 140px; display: flex; margin-top: 15px; border: 2px solid #111; z-index: 10; }
+.key { cursor: pointer; border: 1px solid rgba(0,0,0,0.6); border-radius: 0 0 6px 6px; flex-grow: 1; }
+.key.white { background-color: #f9f9f9; z-index: 1; box-shadow: inset 0 -5px 5px rgba(0,0,0,0.1); }
+.key.black { width: 30px; height: 85px; background-color: #222; position: absolute; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.6); margin-left: -15px; }
+
+.key.white:active, .key.white[data-playhtml-hover] { background-color: #e0e0e0; }
+.key.black:active, .key.black[data-playhtml-hover] { background-color: #111; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.6); }
+
+/* Absolute positioning for black keys based on typical 7-white-key layout */
+.key.black.db { left: 14.28%; } .key.black.eb { left: 28.57%; }
+.key.black.gb { left: 57.14%; } .key.black.ab { left: 71.42%; } .key.black.bb { left: 85.71%; }
+
+.octave-chooser { display: flex; gap: 20px; align-items: center; z-index: 10; }
+
+/* Sequencer LED Steps */
+.seq-content { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
+.seq-track { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.4); }
+.seq-row { display: flex; gap: 8px; }
+.led-step { 
+  appearance: none; width: 20px; height: 20px; 
+  background: #333; border-radius: 50%; border: 2px solid #111; 
+  cursor: pointer; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.2); 
+}
+.led-step:checked { background: #ff3366; box-shadow: 0 0 10px #ff3366, inset 0 2px 4px rgba(255,255,255,0.4); }
+
+/* XY Pad */
+.xy-pad { 
+  width: 100%; height: 200px; 
+  background: #111; border-radius: 6px; 
+  border: 4px solid #222; position: relative; cursor: crosshair; 
+  box-shadow: inset 0 5px 15px rgba(0,0,0,0.9);
+}
+.xy-cursor { 
+  width: 20px; height: 20px; background: rgba(255,255,255,0.8); 
+  border-radius: 50%; position: absolute; top: 50%; left: 50%; 
+  transform: translate(-50%, -50%); pointer-events: none; 
+  box-shadow: 0 0 15px rgba(255,255,255,0.8); 
+}
+
+/* Ribbon Glider */
+.ribbon-track {
+  width: 90%; height: 15px; background: #111;
+  border-radius: 10px; border: 2px solid #000;
+  box-shadow: inset 0 5px 10px rgba(0,0,0,0.9), 0 1px 1px rgba(255,255,255,0.2);
+  position: relative; cursor: ew-resize; margin-top: 10px; z-index: 10;
+}
+.ribbon-finger {
+  width: 30px; height: 200%; background: rgba(255,255,255,0.8);
+  border-radius: 4px; position: absolute; top: 50%; 
+  transform: translateY(-50%); left: 50%; pointer-events: none; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+/* Play/Stomp buttons kept as standard CSS until you replace them with photos */
+.tactile-btn {
+  padding: 10px 15px; background: #ddd; border: 2px solid #999;
+  border-radius: 4px; font-weight: bold; cursor: pointer;
+  box-shadow: 0 4px 0 #777, 0 5px 5px rgba(0,0,0,0.4); z-index: 10;
+}
+.tactile-btn:active, .tactile-btn[data-playhtml-hover] {
+  transform: translateY(4px); box-shadow: 0 0 0 #777;
+}
+.play-btn.active-play { background: #2ecc71; border-color: #27ae60; box-shadow: 0 4px 0 #27ae60; }
