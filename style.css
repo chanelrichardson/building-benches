@@ -4,6 +4,10 @@
 @font-face { font-family: eh; src: url('fonts/EagleHorizonP.ttf'); }
 @font-face { font-family: childhood; src: url('fonts/Child\ Hood.otf'); }
 @font-face { font-family: epu; src: url('ERODED PERSONAL USE.ttf'); }
+@font-face { font-family: graen; src: url('fonts/GraenMetal-Regular.otf'); }
+@font-face {font-family: stagen; src: url('fonts/Stagen.otf')}
+@font-face {font-family: marnos; src: url('fonts/Marnos-Regular.otf')}
+
 
 :root {
   --bg-color: #111; /* Dark background for the floor under the board */
@@ -86,7 +90,13 @@ body {
 
 .pedal-title { margin: 0 0 15px 0; font-family: 'vipna', sans-serif; font-size: 1.5rem; text-align: center; }
 
-.hardware-text { color: #1a1a1a; font-weight: 900; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+.noise-pedal-title { margin: 0 0 15px 0; font-family: 'vipna', sans-serif; font-size: 1.5rem; text-align: center; color: #ffffff; background:#000000c0}
+.bass-grid-pedal-title { margin: 0 0 15px 0; font-family: 'graen', sans-serif; font-size: 3.5rem; text-align: center; color: #1a0460; transform: -2px}
+.ribbon-pedal-title { margin: 0 0 15px 0; font-family: 'stagen', sans-serif; font-size: 1.5rem; text-align: center; color: #f66e90; background: #ffffffc0}
+.shredder-pedal-title { margin: 0 0 15px 0; font-family: 'rockybilly', sans-serif; font-size: 1rem; text-align: center; color: #dfdde7; transform: -2px}
+.echo-pedal-title { margin: 0 0 15px 0; font-family: 'eh', sans-serif; font-size: 1rem; text-align: center; color: #ffcc00; transform: -2px}
+.hardware-text { color: #ffffff; font-weight: 500; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+.shredder-hardware-text { color: #e602ff; font-size: 1.5rem; font-weight: bold; font-family: sans-serif; text-transform: uppercase; letter-spacing: 2px; }
 .piano-hardware-text { color: #070000; font-weight: bold; font-size:1.5rem; font-family: 'childhood'; letter-spacing: 3px; }
 
 /* --- PHOTOREALISTIC BUTTONS & KNOBS --- */
@@ -108,8 +118,8 @@ body {
 }
 
 /* Specific sizing for your drum shapes */
-#ht-btn img { width: 140px; }
-#cy-btn img { height: 160px; width: auto; }
+#ht-btn img { width: 60px; }
+#cy-btn img { width: 60px; }
 #sd-btn img, #mt-btn img, #hc-btn img { width: 60px; }
 
 /* --- PHYSICAL FADERS --- */

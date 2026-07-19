@@ -28,11 +28,10 @@
 
       <!-- PIANO PEDAL -->
       <div class="module pedal-box" id="piano-pedal" style="background-image: url('images/metal-sheet.jpeg');">
-        <div class="control-plate">
           <div class="octave-chooser">
-            <button class="photo-btn" can-hover id="oct-down" onclick="changeOctave(-1, event)"><img src="images/arrow-down-button.png" alt="Down"></button>
+            <button class="photo-btn" can-mirror can-hover id="oct-down" onclick="changeOctave(-1, event)"><img src="images/green_button.png" alt="green_button"></button>
             <span id="octave-display" class="piano-hardware-text">OCT: 4</span>
-            <button class="photo-btn" can-mirror can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/arrow-up-button.png" alt="Up"></button>
+            <button class="photo-btn" can-mirror can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/green_button.png" alt="green_button"></button>
           </div>
           <div class="keyboard-container">
             <div class="key white" can-mirror can-hover id="note-C" onclick="playNote('C', event)"></div>
@@ -47,26 +46,22 @@
             <div class="key white" can-mirror can-hover id="note-A" onclick="playNote('A', event)"></div>
             <div class="key black bb" can-mirror can-hover id="note-Bb" onclick="playNote('Bb', event)"></div>
             <div class="key white" can-mirror can-hover id="note-B" onclick="playNote('B', event)"></div>
-          </div>
         </div>
       </div>
 
       <!-- NOISE GENERATOR -->
-      <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/abstraction.png');">
-        <div class="control-plate">
-          <h3 class="pedal-title">NOISE GENERATOR</h3>
+      <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/noise_bg.png');">
+          <h3 class="noise-pedal-title">NOISE GENERATOR</h3>
           <div class="fader-container">
             <label class="hardware-text">FREQ</label>
             <input type="range" class="physical-fader" can-play id="tuner-freq" min="100" max="5000" step="10" value="400">
           </div>
-          <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="tuner-toggle"><img src="images/stomp-switch.png" alt="ON"></button>
-        </div>
+          <button class="photo-btn" style="margin-top:20px;" can-play id="tuner-toggle"><img src="images/off_toggle.png" alt="OFF"></button>
       </div>
 
       <!-- AUTO-BASS GRID -->
-      <div class="module pedal-box" id="seq-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
-        <div class="control-plate">
-          <h3 class="pedal-title">AUTO-BASS GRID</h3>
+      <div class="module pedal-box" id="seq-pedal" style="background-image: url('images/minecraft.jpg'); width: 400px;">
+          <h3 class="bass-grid-pedal-title">AUTO-BASS GRID</h3>
           <div class="seq-content" id="seq-grid">
             <div class="seq-track">
               <button class="tactile-btn play-btn" can-play can-hover id="play-btn-0">PLAY</button>
@@ -93,58 +88,49 @@
                 <input type="checkbox" class="led-step" can-play id="step-2-2"><input type="checkbox" class="led-step" can-play id="step-2-3">
                 <input type="checkbox" class="led-step" can-play id="step-2-4"><input type="checkbox" class="led-step" can-play id="step-2-5">
                 <input type="checkbox" class="led-step" can-play id="step-2-6"><input type="checkbox" class="led-step" can-play id="step-2-7">
-              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- XY PAD -->
-      <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/abstraction.png');">
-        <div class="control-plate">
+      <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/circuit.png');">
           <div class="xy-pad" can-play id="xy-pad">
             <div class="xy-cursor" id="xy-cursor"></div>
-          </div>
         </div>
       </div>
 
       <!-- ECHO TANK -->
       <div class="module pedal-box" id="echo-pedal" style="background-image: url('images/abstraction.png');">
-        <div class="control-plate">
-          <h3 class="pedal-title">ECHO TANK</h3>
+          <h3 class="echo-pedal-title">ECHO TANK</h3>
           <div class="fader-row">
             <div class="fader-container">
-              <label class="hardware-text">TIME</label>
+              <label class="echo-pedal-title">TIME</label>
               <input type="range" class="physical-fader" can-play id="echo-time" min="0" max="1" step="0.1" value="0.5">
             </div>
             <div class="fader-container">
-              <label class="hardware-text">FDBK</label>
+              <label class="echo-pedal-title">FDBK</label>
               <input type="range" class="physical-fader" can-play id="echo-feedback" min="0" max="0.9" step="0.1" value="0.5">
             </div>
           </div>
-          <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="echo-toggle"><img src="images/stomp-switch.png" alt="BYPASS"></button>
-        </div>
+          <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="echo-toggle"><img src="images/bypass.png" alt="BYPASS"></button>
       </div>
 
       <!-- SHREDDER -->
-      <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/abstraction.png');">
-        <div class="control-plate">
-          <h3 class="pedal-title">SHREDDER</h3>
+      <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/space.jpg');">
+          <h3 class="shredder-pedal-title">SHREDDER</h3>
           <div class="fader-container">
-            <label class="hardware-text">DESTROY</label>
+            <label class="shredder-hardware-text">DSTRY</label>
             <input type="range" class="physical-fader" can-play id="fuzz-amount" min="0" max="1" step="0.1" value="0.8">
           </div>
-           <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="fuzz-toggle"><img src="images/stomp-switch.png" alt="CLEAN"></button>
-        </div>
+           <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="fuzz-toggle"><img src="images/clean-btn.png" alt="CLEAN"></button>
       </div>
 
       <!-- RIBBON GLIDE -->
-      <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
-        <div class="control-plate">
-          <h3 class="pedal-title">RIBBON GLIDE</h3>
+      <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/multipattern.jpg'); width: 400px;">
+          <h3 class="ribbon-pedal-title">RIBBON GLIDE</h3>
           <div class="ribbon-track" can-play id="ribbon-track">
             <div class="ribbon-finger" id="ribbon-finger"></div>
-          </div>
         </div>
       </div>
       
@@ -193,9 +179,6 @@
       // 2. MOMENTARY INSTRUMENTS (PIANO & DRUMS)
       // ==========================================
       
-      // We bind these to 'window' so the inline HTML onclick attributes can access them
-      // since <script type="module"> normally scopes variables tightly.
-
       window.handleDrumButton = (audioPath, e) => {
         if(e) e.stopPropagation(); 
         new Audio(audioPath).play().catch(() => console.log("Audio not found"));
@@ -220,70 +203,74 @@
       // ==========================================
 
       // --- FX TOGGLES & FADERS ---
-
       const fuzzToggle = document.getElementById("fuzz-toggle");
       fuzzToggle.defaultData = { isOn: false };
       fuzzToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
-      fuzzToggle.updateElement = ({ element, data }) => {
+      fuzzToggle.updateElement = ({ data }) => {
         fuzzOn = data.isOn;
         updatePianoRouting();
-        element.style.opacity = data.isOn ? "1" : "0.5";
+        fuzzToggle.style.opacity = data.isOn ? "1" : "0.5";
       };
 
       const fuzzAmount = document.getElementById("fuzz-amount");
       fuzzAmount.defaultData = { val: 0.8 };
-      fuzzAmount.onMount = ({ element, setData }) => {
-        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      fuzzAmount.onMount = ({ setData }) => {
+        fuzzAmount.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
       };
-      fuzzAmount.updateElement = ({ element, data }) => {
-        element.value = data.val;
+      fuzzAmount.updateElement = ({ data }) => {
+        fuzzAmount.value = data.val;
         fuzz.distortion = data.val;
       };
 
       const echoToggle = document.getElementById("echo-toggle");
       echoToggle.defaultData = { isOn: false };
       echoToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
-      echoToggle.updateElement = ({ element, data }) => {
+      echoToggle.updateElement = ({ data }) => {
         echoOn = data.isOn;
         updatePianoRouting();
-        element.style.opacity = data.isOn ? "1" : "0.5";
+        echoToggle.style.opacity = data.isOn ? "1" : "0.5";
       };
 
       const echoTime = document.getElementById("echo-time");
       echoTime.defaultData = { val: 0.5 };
-      echoTime.onMount = ({ element, setData }) => {
-        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      echoTime.onMount = ({ setData }) => {
+        echoTime.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
       };
-      echoTime.updateElement = ({ element, data }) => {
-        element.value = data.val;
+      echoTime.updateElement = ({ data }) => {
+        echoTime.value = data.val;
         delay.delayTime.value = data.val;
       };
 
       const echoFeedback = document.getElementById("echo-feedback");
       echoFeedback.defaultData = { val: 0.5 };
-      echoFeedback.onMount = ({ element, setData }) => {
-        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      echoFeedback.onMount = ({ setData }) => {
+        echoFeedback.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
       };
-      echoFeedback.updateElement = ({ element, data }) => {
-        element.value = data.val;
+      echoFeedback.updateElement = ({ data }) => {
+        echoFeedback.value = data.val;
         delay.feedback.value = data.val;
       };
 
       const tunerToggle = document.getElementById("tuner-toggle");
       tunerToggle.defaultData = { isOn: false };
-      tunerToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
-      tunerToggle.updateElement = ({ element, data }) => {
+      tunerToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn })
+      tunerToggle.updateElement = ({ data }) => {
         if (data.isOn) { noise.start(); } else { noise.stop(); }
-        element.style.opacity = data.isOn ? "1" : "0.5";
+        
+        const btnImg = tunerToggle.querySelector("img");
+        if (btnImg) {
+          btnImg.src = data.isOn ? "images/on_toggle.png" : "images/off_toggle.png";
+          btnImg.alt = data.isOn ? "ON" : "OFF";
+        }
       };
 
       const tunerFreq = document.getElementById("tuner-freq");
       tunerFreq.defaultData = { val: 400 };
-      tunerFreq.onMount = ({ element, setData }) => {
-        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      tunerFreq.onMount = ({ setData }) => {
+        tunerFreq.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
       };
-      tunerFreq.updateElement = ({ element, data }) => {
-        element.value = data.val;
+      tunerFreq.updateElement = ({ data }) => {
+        tunerFreq.value = data.val;
         noiseFilter.frequency.rampTo(data.val, 0.1);
       };
 
@@ -318,9 +305,9 @@
         const btn = document.getElementById(`play-btn-${r}`);
         btn.defaultData = { isPlaying: false };
         btn.onClick = (e, { data, setData }) => setData({ isPlaying: !data.isPlaying });
-        btn.updateElement = ({ element, data }) => {
+        btn.updateElement = ({ data }) => {
           rowPlaying[r] = data.isPlaying;
-          element.classList.toggle('active-play', data.isPlaying);
+          btn.classList.toggle('active-play', data.isPlaying);
           
           if (!rowPlaying.some(row => row)) {
             currentStep = 0;
@@ -331,11 +318,11 @@
         for(let c = 0; c < 8; c++) {
           const stepInput = document.getElementById(`step-${r}-${c}`);
           stepInput.defaultData = { isChecked: false };
-          stepInput.onMount = ({ element, setData }) => {
-            element.addEventListener("change", (e) => setData({ isChecked: e.target.checked }));
+          stepInput.onMount = ({ setData }) => {
+            stepInput.addEventListener("change", (e) => setData({ isChecked: e.target.checked }));
           };
-          stepInput.updateElement = ({ element, data }) => {
-            element.checked = data.isChecked;
+          stepInput.updateElement = ({ data }) => {
+            stepInput.checked = data.isChecked;
           };
         }
       }
@@ -344,32 +331,45 @@
       const xyFilter = new Tone.Filter(400, "lowpass").connect(masterFilter);
       const xySynth = new Tone.Synth({ oscillator: { type: "sawtooth" } }).connect(xyFilter);
       let xyActiveLocal = false;
+      let lastXyX = 0.5;
+      let lastXyY = 0.5;
 
       const pad = document.getElementById('xy-pad');
       const cursor = document.getElementById('xy-cursor');
       
       pad.defaultData = { pctX: 0.5, pctY: 0.5, active: false };
-      pad.onMount = ({ element, setData }) => {
+      pad.onMount = ({ setData }) => {
         let isDragging = false;
+        pad.style.touchAction = "none";
         
         const emitCoords = (e) => {
-          const rect = element.getBoundingClientRect();
-          let px = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-          let py = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
-          setData({ pctX: px / rect.width, pctY: py / rect.height, active: true });
+          const rect = pad.getBoundingClientRect();
+          lastXyX = Math.max(0, Math.min(e.clientX - rect.left, rect.width)) / rect.width;
+          lastXyY = Math.max(0, Math.min(e.clientY - rect.top, rect.height)) / rect.height;
+          setData({ pctX: lastXyX, pctY: lastXyY, active: true });
         };
 
-        element.addEventListener('mousedown', (e) => { isDragging = true; emitCoords(e); });
-        document.addEventListener('mouseup', () => { if(isDragging) { isDragging = false; setData({ ...pad.data, active: false }); } });
-        document.addEventListener('mousemove', (e) => { if(isDragging) emitCoords(e); });
+        pad.addEventListener('pointerdown', (e) => { 
+          isDragging = true; 
+          pad.setPointerCapture(e.pointerId);
+          emitCoords(e); 
+        });
+        pad.addEventListener('pointerup', (e) => { 
+          if(isDragging) { 
+            isDragging = false; 
+            pad.releasePointerCapture(e.pointerId);
+            setData({ pctX: lastXyX, pctY: lastXyY, active: false }); 
+          } 
+        });
+        pad.addEventListener('pointermove', (e) => { 
+          if(isDragging) emitCoords(e); 
+        });
       };
 
-      pad.updateElement = ({ element, data }) => {
-        // Sync visuals
+      pad.updateElement = ({ data }) => {
         cursor.style.left = `${data.pctX * 100}%`;
         cursor.style.top = `${data.pctY * 100}%`;
 
-        // Sync audio state
         if (data.active && !xyActiveLocal) {
           xySynth.triggerAttack("C3");
           xyActiveLocal = true;
@@ -378,7 +378,6 @@
           xyActiveLocal = false;
         }
 
-        // Modulate based on percentage (ensures screens of different sizes hear the same thing)
         xySynth.frequency.rampTo(Math.max(60, data.pctX * 500), 0.1);
         xyFilter.frequency.rampTo(Math.max(100, (1 - data.pctY) * 2000), 0.1);
       };
@@ -388,23 +387,37 @@
       const ribbon = document.getElementById('ribbon-track');
       const finger = document.getElementById('ribbon-finger');
       let ribbonActiveLocal = false;
+      let lastRibbonX = 0.5;
 
       ribbon.defaultData = { pctX: 0.5, active: false };
-      ribbon.onMount = ({ element, setData }) => {
+      ribbon.onMount = ({ setData }) => {
         let isGliding = false;
+        ribbon.style.touchAction = "none";
         
         const emitX = (e) => {
-          const rect = element.getBoundingClientRect();
-          let px = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-          setData({ pctX: px / rect.width, active: true });
+          const rect = ribbon.getBoundingClientRect();
+          lastRibbonX = Math.max(0, Math.min(e.clientX - rect.left, rect.width)) / rect.width;
+          setData({ pctX: lastRibbonX, active: true });
         };
 
-        element.addEventListener('mousedown', (e) => { isGliding = true; emitX(e); });
-        document.addEventListener('mouseup', () => { if(isGliding) { isGliding = false; setData({ ...ribbon.data, active: false }); } });
-        document.addEventListener('mousemove', (e) => { if(isGliding) emitX(e); });
+        ribbon.addEventListener('pointerdown', (e) => { 
+          isGliding = true; 
+          ribbon.setPointerCapture(e.pointerId);
+          emitX(e); 
+        });
+        ribbon.addEventListener('pointerup', (e) => { 
+          if(isGliding) { 
+            isGliding = false; 
+            ribbon.releasePointerCapture(e.pointerId);
+            setData({ pctX: lastRibbonX, active: false }); 
+          } 
+        });
+        ribbon.addEventListener('pointermove', (e) => { 
+          if(isGliding) emitX(e); 
+        });
       };
 
-      ribbon.updateElement = ({ element, data }) => {
+      ribbon.updateElement = ({ data }) => {
         finger.style.left = `${data.pctX * 100}%`;
 
         if (data.active && !ribbonActiveLocal) {
@@ -423,7 +436,7 @@
       // 4. INITIALIZE PLAYHTML
       // ==========================================
       playhtml.init({
-        cursors: { enabled: true, room: "pedalboard" }
+        cursors: { enabled: true, room: "pedalboard-v3" }
       });
       window.playhtml = playhtml;
 
