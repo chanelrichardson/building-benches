@@ -5,40 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Synth Sess - PlayHTML Chaos Board</title>
     <link rel="stylesheet" href="style.css" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script type="module">
-      import { playhtml } from "https://unpkg.com/playhtml@latest";
-      playhtml.init({
-        cursors: { enabled: true, room: "pedalboard" }
-      });
-      window.playhtml = playhtml;
-    </script>
   </head>
   <body>
 
     <div class="synth-workspace" id="board">
       
-      <div class="module pedal-box" id="drum-pedal" style="background-image: url('images/bb-bg.jpg');">\
+      <!-- DRUMS -->
+      <div class="module pedal-box" id="drum-pedal" style="background-image: url('images/bb-bg.jpg');">
         <div class="buttons-row">
-          <button type="button" class="photo-btn" can-hover id="ht-btn" onclick="handleDrumButton('sounds/808ht_HT00.WAV', event)"><img src='images/red-push-button.png'></button>
-          <button type="button" class="photo-btn" can-hover id="cy-btn" onclick="handleDrumButton('sounds/808cy_CY0000.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-mirror can-hover id="ht-btn" onclick="handleDrumButton('sounds/808ht_HT00.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-mirror can-hover id="cy-btn" onclick="handleDrumButton('sounds/808cy_CY0000.WAV', event)"><img src='images/red-push-button.png'></button>
         </div>
         <div class="buttons-row">
-          <button type="button" class="photo-btn" can-hover id="sd-btn" onclick="handleDrumButton('sounds/808sd_SD0000.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-mirror can-hover id="sd-btn" onclick="handleDrumButton('sounds/808sd_SD0000.WAV', event)"><img src='images/red-push-button.png'></button>
         </div>
         <div class="buttons-row">
-          <button type="button" class="photo-btn" can-hover id="mt-btn" onclick="handleDrumButton('sounds/808mt_MT00.WAV', event)"><img src='images/red-push-button.png'></button>
-          <button type="button" class="photo-btn" can-hover id="hc-btn" onclick="handleDrumButton('sounds/808hc_HC00.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-mirror can-hover id="mt-btn" onclick="handleDrumButton('sounds/808mt_MT00.WAV', event)"><img src='images/red-push-button.png'></button>
+          <button type="button" class="photo-btn" can-mirror can-hover id="hc-btn" onclick="handleDrumButton('sounds/808hc_HC00.WAV', event)"><img src='images/red-push-button.png'></button>
         </div>
       </div>
 
+      <!-- PIANO PEDAL -->
       <div class="module pedal-box" id="piano-pedal" style="background-image: url('images/metal-sheet.jpeg');">
         <div class="control-plate">
           <div class="octave-chooser">
             <button class="photo-btn" can-hover id="oct-down" onclick="changeOctave(-1, event)"><img src="images/arrow-down-button.png" alt="Down"></button>
             <span id="octave-display" class="piano-hardware-text">OCT: 4</span>
-            <button class="photo-btn" can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/arrow-up-button.png" alt="Up"></button>
+            <button class="photo-btn" can-mirror can-hover id="oct-up" onclick="changeOctave(1, event)"><img src="images/arrow-up-button.png" alt="Up"></button>
           </div>
           <div class="keyboard-container">
             <div class="key white" can-mirror can-hover id="note-C" onclick="playNote('C', event)"></div>
@@ -57,92 +51,98 @@
         </div>
       </div>
 
+      <!-- NOISE GENERATOR -->
       <div class="module pedal-box" id="tuner-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">NOISE GENERATOR</h3>
           <div class="fader-container">
             <label class="hardware-text">FREQ</label>
-            <input type="range" class="physical-fader" id="tuner-freq" min="100" max="5000" step="10" value="400">
+            <input type="range" class="physical-fader" can-play id="tuner-freq" min="100" max="5000" step="10" value="400">
           </div>
-          <button class="photo-btn" style="margin-top:20px;" can-hover id="tuner-toggle" onclick="toggleTuner(event)"><img src="images/stomp-switch.png" alt="ON"></button>
+          <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="tuner-toggle"><img src="images/stomp-switch.png" alt="ON"></button>
         </div>
       </div>
 
+      <!-- AUTO-BASS GRID -->
       <div class="module pedal-box" id="seq-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
         <div class="control-plate">
           <h3 class="pedal-title">AUTO-BASS GRID</h3>
-          <div class="seq-content">
+          <div class="seq-content" id="seq-grid">
             <div class="seq-track">
-              <button class="tactile-btn play-btn" can-hover id="play-btn-0" onclick="toggleSeqRow(0, event)">PLAY</button>
+              <button class="tactile-btn play-btn" can-play can-hover id="play-btn-0">PLAY</button>
               <div class="seq-row">
-                <input type="checkbox" class="led-step" id="step-0-0"><input type="checkbox" class="led-step" id="step-0-1">
-                <input type="checkbox" class="led-step" id="step-0-2"><input type="checkbox" class="led-step" id="step-0-3">
-                <input type="checkbox" class="led-step" id="step-0-4"><input type="checkbox" class="led-step" id="step-0-5">
-                <input type="checkbox" class="led-step" id="step-0-6"><input type="checkbox" class="led-step" id="step-0-7">
+                <input type="checkbox" class="led-step" can-play id="step-0-0"><input type="checkbox" class="led-step" can-play id="step-0-1">
+                <input type="checkbox" class="led-step" can-play id="step-0-2"><input type="checkbox" class="led-step" can-play id="step-0-3">
+                <input type="checkbox" class="led-step" can-play id="step-0-4"><input type="checkbox" class="led-step" can-play id="step-0-5">
+                <input type="checkbox" class="led-step" can-play id="step-0-6"><input type="checkbox" class="led-step" can-play id="step-0-7">
               </div>
             </div>
             <div class="seq-track">
-              <button class="tactile-btn play-btn" can-hover id="play-btn-1" onclick="toggleSeqRow(1, event)">PLAY</button>
+              <button class="tactile-btn play-btn" can-play can-hover id="play-btn-1">PLAY</button>
               <div class="seq-row">
-                <input type="checkbox" class="led-step" id="step-1-0"><input type="checkbox" class="led-step" id="step-1-1">
-                <input type="checkbox" class="led-step" id="step-1-2"><input type="checkbox" class="led-step" id="step-1-3">
-                <input type="checkbox" class="led-step" id="step-1-4"><input type="checkbox" class="led-step" id="step-1-5">
-                <input type="checkbox" class="led-step" id="step-1-6"><input type="checkbox" class="led-step" id="step-1-7">
+                <input type="checkbox" class="led-step" can-play id="step-1-0"><input type="checkbox" class="led-step" can-play id="step-1-1">
+                <input type="checkbox" class="led-step" can-play id="step-1-2"><input type="checkbox" class="led-step" can-play id="step-1-3">
+                <input type="checkbox" class="led-step" can-play id="step-1-4"><input type="checkbox" class="led-step" can-play id="step-1-5">
+                <input type="checkbox" class="led-step" can-play id="step-1-6"><input type="checkbox" class="led-step" can-play id="step-1-7">
               </div>
             </div>
             <div class="seq-track">
-              <button class="tactile-btn play-btn" can-hover id="play-btn-2" onclick="toggleSeqRow(2, event)">PLAY</button>
+              <button class="tactile-btn play-btn" can-play can-hover id="play-btn-2">PLAY</button>
               <div class="seq-row">
-                <input type="checkbox" class="led-step" id="step-2-0"><input type="checkbox" class="led-step" id="step-2-1">
-                <input type="checkbox" class="led-step" id="step-2-2"><input type="checkbox" class="led-step" id="step-2-3">
-                <input type="checkbox" class="led-step" id="step-2-4"><input type="checkbox" class="led-step" id="step-2-5">
-                <input type="checkbox" class="led-step" id="step-2-6"><input type="checkbox" class="led-step" id="step-2-7">
+                <input type="checkbox" class="led-step" can-play id="step-2-0"><input type="checkbox" class="led-step" can-play id="step-2-1">
+                <input type="checkbox" class="led-step" can-play id="step-2-2"><input type="checkbox" class="led-step" can-play id="step-2-3">
+                <input type="checkbox" class="led-step" can-play id="step-2-4"><input type="checkbox" class="led-step" can-play id="step-2-5">
+                <input type="checkbox" class="led-step" can-play id="step-2-6"><input type="checkbox" class="led-step" can-play id="step-2-7">
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- XY PAD -->
       <div class="module pedal-box" id="xy-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
-          <div class="xy-pad" id="xy-pad">
+          <div class="xy-pad" can-play id="xy-pad">
             <div class="xy-cursor" id="xy-cursor"></div>
           </div>
         </div>
       </div>
 
+      <!-- ECHO TANK -->
       <div class="module pedal-box" id="echo-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">ECHO TANK</h3>
           <div class="fader-row">
             <div class="fader-container">
               <label class="hardware-text">TIME</label>
-              <input type="range" class="physical-fader" id="echo-time" min="0" max="1" step="0.1" value="0.5">
+              <input type="range" class="physical-fader" can-play id="echo-time" min="0" max="1" step="0.1" value="0.5">
             </div>
             <div class="fader-container">
               <label class="hardware-text">FDBK</label>
-              <input type="range" class="physical-fader" id="echo-feedback" min="0" max="0.9" step="0.1" value="0.5">
+              <input type="range" class="physical-fader" can-play id="echo-feedback" min="0" max="0.9" step="0.1" value="0.5">
             </div>
           </div>
-          <button class="photo-btn" style="margin-top:20px;" can-hover id="echo-toggle" onclick="toggleEcho(event)"><img src="images/stomp-switch.png" alt="BYPASS"></button>
+          <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="echo-toggle"><img src="images/stomp-switch.png" alt="BYPASS"></button>
         </div>
       </div>
 
+      <!-- SHREDDER -->
       <div class="module pedal-box" id="fuzz-pedal" style="background-image: url('images/abstraction.png');">
         <div class="control-plate">
           <h3 class="pedal-title">SHREDDER</h3>
           <div class="fader-container">
             <label class="hardware-text">DESTROY</label>
-            <input type="range" class="physical-fader" id="fuzz-amount" min="0" max="1" step="0.1" value="0.8">
+            <input type="range" class="physical-fader" can-play id="fuzz-amount" min="0" max="1" step="0.1" value="0.8">
           </div>
-           <button class="photo-btn" style="margin-top:20px;" can-hover id="fuzz-toggle" onclick="toggleFuzz(event)"><img src="images/stomp-switch.png" alt="CLEAN"></button>
+           <button class="photo-btn" style="margin-top:20px;" can-play can-hover id="fuzz-toggle"><img src="images/stomp-switch.png" alt="CLEAN"></button>
         </div>
       </div>
 
+      <!-- RIBBON GLIDE -->
       <div class="module pedal-box" id="ribbon-pedal" style="background-image: url('images/abstraction.png'); width: 400px;">
         <div class="control-plate">
           <h3 class="pedal-title">RIBBON GLIDE</h3>
-          <div class="ribbon-track" id="ribbon-track">
+          <div class="ribbon-track" can-play id="ribbon-track">
             <div class="ribbon-finger" id="ribbon-finger"></div>
           </div>
         </div>
@@ -150,20 +150,24 @@
       
     </div>
 
-    <script>
+    <script type="module">
+      import { playhtml } from "https://unpkg.com/playhtml@latest";
+
+      // ==========================================
+      // 1. TONE.JS ENGINE SETUP
+      // ==========================================
       let toneStarted = false;
       const masterFilter = new Tone.Filter(20000, "lowpass").toDestination();
 
-      async function initAudio() {
+      document.body.addEventListener('click', async () => {
         if (!toneStarted) {
           await Tone.start();
           Tone.Transport.start(); 
           toneStarted = true;
         }
-      }
-      document.body.addEventListener('click', initAudio, { once: true });
+      }, { once: true });
 
-      // --- PIANO, FUZZ, & ECHO ---
+      // FX Chain
       const delay = new Tone.FeedbackDelay("8n", 0.5);
       const fuzz = new Tone.Distortion(0.8);
       fuzz.connect(delay);
@@ -181,56 +185,109 @@
         else { pianoSynth.connect(masterFilter); }
       }
 
+      const noise = new Tone.Noise("pink");
+      const noiseFilter = new Tone.Filter(400, "bandpass").connect(masterFilter);
+      noise.connect(noiseFilter);
+
+      // ==========================================
+      // 2. MOMENTARY INSTRUMENTS (PIANO & DRUMS)
+      // ==========================================
+      
+      // We bind these to 'window' so the inline HTML onclick attributes can access them
+      // since <script type="module"> normally scopes variables tightly.
+
+      window.handleDrumButton = (audioPath, e) => {
+        if(e) e.stopPropagation(); 
+        new Audio(audioPath).play().catch(() => console.log("Audio not found"));
+      };
+
       let currentOctave = 4;
-      function changeOctave(dir, e) {
+      window.changeOctave = (dir, e) => {
         if(e) e.stopPropagation();
         currentOctave = Math.max(1, Math.min(7, currentOctave + dir));
         document.getElementById('octave-display').innerText = `OCT: ${currentOctave}`;
-      }
+      };
 
-      function playNote(note, e) {
+      window.playNote = (note, e) => {
         if(e) e.stopPropagation();
         pianoSynth.triggerAttackRelease(note + currentOctave, "8n");
         const keyElem = document.getElementById(`note-${note}`);
         if (keyElem) { keyElem.classList.add('active'); setTimeout(() => keyElem.classList.remove('active'), 150); }
-      }
+      };
 
-      function toggleEcho(e) {
-        if(e) e.stopPropagation();
-        echoOn = !echoOn;
+      // ==========================================
+      // 3. CAN-PLAY STATEFUL INSTRUMENTS
+      // ==========================================
+
+      // --- FX TOGGLES & FADERS ---
+
+      const fuzzToggle = document.getElementById("fuzz-toggle");
+      fuzzToggle.defaultData = { isOn: false };
+      fuzzToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
+      fuzzToggle.updateElement = ({ element, data }) => {
+        fuzzOn = data.isOn;
         updatePianoRouting();
-      }
-      
-      document.getElementById('echo-time').addEventListener('input', (e) => delay.delayTime.value = e.target.value);
-      document.getElementById('echo-feedback').addEventListener('input', (e) => delay.feedback.value = e.target.value);
+        element.style.opacity = data.isOn ? "1" : "0.5";
+      };
 
-      function toggleFuzz(e) {
-        if(e) e.stopPropagation();
-        fuzzOn = !fuzzOn;
+      const fuzzAmount = document.getElementById("fuzz-amount");
+      fuzzAmount.defaultData = { val: 0.8 };
+      fuzzAmount.onMount = ({ element, setData }) => {
+        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      };
+      fuzzAmount.updateElement = ({ element, data }) => {
+        element.value = data.val;
+        fuzz.distortion = data.val;
+      };
+
+      const echoToggle = document.getElementById("echo-toggle");
+      echoToggle.defaultData = { isOn: false };
+      echoToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
+      echoToggle.updateElement = ({ element, data }) => {
+        echoOn = data.isOn;
         updatePianoRouting();
-      }
-      document.getElementById('fuzz-amount').addEventListener('input', (e) => fuzz.distortion = e.target.value);
+        element.style.opacity = data.isOn ? "1" : "0.5";
+      };
 
-      // --- DRUMS ---
-      function handleDrumButton(audioPath, e) {
-        if(e) e.stopPropagation(); 
-        new Audio(audioPath).play().catch(() => console.log("Audio not found"));
-      }
+      const echoTime = document.getElementById("echo-time");
+      echoTime.defaultData = { val: 0.5 };
+      echoTime.onMount = ({ element, setData }) => {
+        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      };
+      echoTime.updateElement = ({ element, data }) => {
+        element.value = data.val;
+        delay.delayTime.value = data.val;
+      };
 
-      // --- NOISE GENERATOR ---
-      const noise = new Tone.Noise("pink");
-      const noiseFilter = new Tone.Filter(400, "bandpass").connect(masterFilter);
-      noise.connect(noiseFilter);
-      let tunerOn = false;
+      const echoFeedback = document.getElementById("echo-feedback");
+      echoFeedback.defaultData = { val: 0.5 };
+      echoFeedback.onMount = ({ element, setData }) => {
+        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      };
+      echoFeedback.updateElement = ({ element, data }) => {
+        element.value = data.val;
+        delay.feedback.value = data.val;
+      };
 
-      function toggleTuner(e) {
-        if(e) e.stopPropagation();
-        tunerOn = !tunerOn;
-        if (tunerOn) { noise.start(); } else { noise.stop(); }
-      }
-      document.getElementById('tuner-freq').addEventListener('input', (e) => noiseFilter.frequency.rampTo(e.target.value, 0.1));
+      const tunerToggle = document.getElementById("tuner-toggle");
+      tunerToggle.defaultData = { isOn: false };
+      tunerToggle.onClick = (e, { data, setData }) => setData({ isOn: !data.isOn });
+      tunerToggle.updateElement = ({ element, data }) => {
+        if (data.isOn) { noise.start(); } else { noise.stop(); }
+        element.style.opacity = data.isOn ? "1" : "0.5";
+      };
 
-      // --- MULTI-ROW SEQUENCER ---
+      const tunerFreq = document.getElementById("tuner-freq");
+      tunerFreq.defaultData = { val: 400 };
+      tunerFreq.onMount = ({ element, setData }) => {
+        element.addEventListener("input", (e) => setData({ val: parseFloat(e.target.value) }));
+      };
+      tunerFreq.updateElement = ({ element, data }) => {
+        element.value = data.val;
+        noiseFilter.frequency.rampTo(data.val, 0.1);
+      };
+
+      // --- SEQUENCER ---
       const seqSynths = [
         new Tone.Synth({ oscillator: { type: "triangle" } }).connect(masterFilter),
         new Tone.PolySynth().connect(masterFilter),                                 
@@ -257,57 +314,119 @@
         currentStep = (currentStep + 1) % 8;
       }, "8n");
 
-      function toggleSeqRow(rowIndex, e) {
-        if(e) e.stopPropagation();
-        rowPlaying[rowIndex] = !rowPlaying[rowIndex];
-        document.getElementById(`play-btn-${rowIndex}`).classList.toggle('active-play');
-        if (!rowPlaying.some(r => r)) {
-          currentStep = 0;
-          document.querySelectorAll('.led-step').forEach(s => s.classList.remove('active-step'));
+      for(let r = 0; r < 3; r++) {
+        const btn = document.getElementById(`play-btn-${r}`);
+        btn.defaultData = { isPlaying: false };
+        btn.onClick = (e, { data, setData }) => setData({ isPlaying: !data.isPlaying });
+        btn.updateElement = ({ element, data }) => {
+          rowPlaying[r] = data.isPlaying;
+          element.classList.toggle('active-play', data.isPlaying);
+          
+          if (!rowPlaying.some(row => row)) {
+            currentStep = 0;
+            document.querySelectorAll('.led-step').forEach(s => s.classList.remove('active-step'));
+          }
+        };
+
+        for(let c = 0; c < 8; c++) {
+          const stepInput = document.getElementById(`step-${r}-${c}`);
+          stepInput.defaultData = { isChecked: false };
+          stepInput.onMount = ({ element, setData }) => {
+            element.addEventListener("change", (e) => setData({ isChecked: e.target.checked }));
+          };
+          stepInput.updateElement = ({ element, data }) => {
+            element.checked = data.isChecked;
+          };
         }
       }
 
       // --- XY PAD ---
       const xyFilter = new Tone.Filter(400, "lowpass").connect(masterFilter);
       const xySynth = new Tone.Synth({ oscillator: { type: "sawtooth" } }).connect(xyFilter);
+      let xyActiveLocal = false;
+
       const pad = document.getElementById('xy-pad');
       const cursor = document.getElementById('xy-cursor');
-      let isDraggingXY = false;
+      
+      pad.defaultData = { pctX: 0.5, pctY: 0.5, active: false };
+      pad.onMount = ({ element, setData }) => {
+        let isDragging = false;
+        
+        const emitCoords = (e) => {
+          const rect = element.getBoundingClientRect();
+          let px = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+          let py = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
+          setData({ pctX: px / rect.width, pctY: py / rect.height, active: true });
+        };
 
-      pad.addEventListener('mousedown', (e) => {
-        if(e) e.stopPropagation(); isDraggingXY = true; xySynth.triggerAttack("C3"); updateXY(e);
-      });
-      document.addEventListener('mouseup', () => { if (isDraggingXY) { isDraggingXY = false; xySynth.triggerRelease(); } });
-      document.addEventListener('mousemove', (e) => { if (isDraggingXY) updateXY(e); });
+        element.addEventListener('mousedown', (e) => { isDragging = true; emitCoords(e); });
+        document.addEventListener('mouseup', () => { if(isDragging) { isDragging = false; setData({ ...pad.data, active: false }); } });
+        document.addEventListener('mousemove', (e) => { if(isDragging) emitCoords(e); });
+      };
 
-      function updateXY(e) {
-        const rect = pad.getBoundingClientRect();
-        let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-        let y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
-        cursor.style.left = `${x}px`; cursor.style.top = `${y}px`;
-        xySynth.frequency.rampTo(Math.max(60, (x / rect.width) * 500), 0.1);
-        xyFilter.frequency.rampTo(Math.max(100, ((rect.height - y) / rect.height) * 2000), 0.1);
-      }
+      pad.updateElement = ({ element, data }) => {
+        // Sync visuals
+        cursor.style.left = `${data.pctX * 100}%`;
+        cursor.style.top = `${data.pctY * 100}%`;
+
+        // Sync audio state
+        if (data.active && !xyActiveLocal) {
+          xySynth.triggerAttack("C3");
+          xyActiveLocal = true;
+        } else if (!data.active && xyActiveLocal) {
+          xySynth.triggerRelease();
+          xyActiveLocal = false;
+        }
+
+        // Modulate based on percentage (ensures screens of different sizes hear the same thing)
+        xySynth.frequency.rampTo(Math.max(60, data.pctX * 500), 0.1);
+        xyFilter.frequency.rampTo(Math.max(100, (1 - data.pctY) * 2000), 0.1);
+      };
 
       // --- RIBBON GLIDER ---
       const ribbonSynth = new Tone.Synth({ oscillator: { type: "sine" } }).connect(masterFilter);
       const ribbon = document.getElementById('ribbon-track');
       const finger = document.getElementById('ribbon-finger');
-      let isGliding = false;
+      let ribbonActiveLocal = false;
 
-      ribbon.addEventListener('mousedown', (e) => {
-        if(e) e.stopPropagation(); isGliding = true; updateRibbon(e); ribbonSynth.triggerAttack(ribbonSynth.frequency.value);
-      });
-      document.addEventListener('mouseup', () => { if(isGliding) { isGliding = false; ribbonSynth.triggerRelease(); }});
-      document.addEventListener('mousemove', (e) => { if(isGliding) updateRibbon(e); });
+      ribbon.defaultData = { pctX: 0.5, active: false };
+      ribbon.onMount = ({ element, setData }) => {
+        let isGliding = false;
+        
+        const emitX = (e) => {
+          const rect = element.getBoundingClientRect();
+          let px = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+          setData({ pctX: px / rect.width, active: true });
+        };
 
-      function updateRibbon(e) {
-        const rect = ribbon.getBoundingClientRect();
-        let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-        finger.style.left = `${x}px`;
-        const freq = Math.max(100, (x / rect.width) * 1500);
+        element.addEventListener('mousedown', (e) => { isGliding = true; emitX(e); });
+        document.addEventListener('mouseup', () => { if(isGliding) { isGliding = false; setData({ ...ribbon.data, active: false }); } });
+        document.addEventListener('mousemove', (e) => { if(isGliding) emitX(e); });
+      };
+
+      ribbon.updateElement = ({ element, data }) => {
+        finger.style.left = `${data.pctX * 100}%`;
+
+        if (data.active && !ribbonActiveLocal) {
+          ribbonSynth.triggerAttack(ribbonSynth.frequency.value);
+          ribbonActiveLocal = true;
+        } else if (!data.active && ribbonActiveLocal) {
+          ribbonSynth.triggerRelease();
+          ribbonActiveLocal = false;
+        }
+
+        const freq = Math.max(100, data.pctX * 1500);
         ribbonSynth.frequency.rampTo(freq, 0.05); 
-      }
+      };
+
+      // ==========================================
+      // 4. INITIALIZE PLAYHTML
+      // ==========================================
+      playhtml.init({
+        cursors: { enabled: true, room: "pedalboard" }
+      });
+      window.playhtml = playhtml;
+
     </script>
   </body>
 </html>
